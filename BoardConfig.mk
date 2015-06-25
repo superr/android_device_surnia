@@ -1,0 +1,85 @@
+# -include vendor/motorola/surnia/BoardConfigVendor.mk
+
+LOCAL_PATH := device/motorola/surnia
+
+# platform
+TARGET_ARCH := arm
+BOARD_VENDOR := motorola-qcom
+TARGET_BOARD_PLATFORM := msm8916
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno306
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_VARIANT := cortex-a7
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
+
+# bootloader
+TARGET_BOOTLOADER_BOARD_NAME := MSM8916
+TARGET_NO_BOOTLOADER := true
+
+# kernel
+BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
+BOARD_KERNEL_BASE := 0x80000000
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=400M androidboot.bootdevice=soc.0 utags.blkdev=/dev/block/platform/soc.0/by-name/utags utags.backup=/dev/block/platform/soc.0/by-name/utagsBackup movablecore=160M androidboot.selinux=permissive
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_SEPARATED_DT := true
+BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_KERNEL_TAGS_OFFSET := 0x00000100
+TARGET_KERNEL_SOURCE := kernel/motorola/surnia
+TARGET_KERNEL_CONFIG := surnia_defconfig
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+#TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
+#BOARD_MKBOOTIMG_ARGS := --dt $(LOCAL_PATH)/dt.img
+
+# crypto
+TARGET_HW_DISK_ENCRYPTION := true
+
+# display
+BOARD_EGL_CFG := $(LOCAL_PATH)/egl.cfg
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_HAVE_NEW_GRALLOC := true
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_USES_ION := true
+USE_OPENGL_RENDERER := true
+TARGET_CONTINUOUS_SPLASH_ENABLED := true
+
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
+# Lights
+TARGET_PROVIDES_LIBLIGHT := true
+
+# Partitions
+BOARD_FLASH_BLOCK_SIZE := 131072
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432 #32768
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33538048 #32752
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1895825408 #1851392
+BOARD_PERSISTIMAGE_PARTITION_SIZE := 8388608 # 8192
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 5351800832 # 5226368
+
+# Qualcomm support
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
+BOARD_USES_QCOM_HARDWARE := true
+TARGET_NO_RPC := true
+
+# Power
+TARGET_POWERHAL_VARIANT := qcom
+
+# Recovery
+BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+#BOARD_RECOVERY_SWIPE := true
+
+# TWRP
+DEVICE_RESOLUTION := 540x960
+TW_IGNORE_MAJOR_AXIS_0 := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_SCREEN_BLANK_ON_BOOT := true
+
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
+
+# Vold
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
